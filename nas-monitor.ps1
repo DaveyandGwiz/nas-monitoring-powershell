@@ -1,0 +1,10 @@
+# Temporary drive mapping
+$drive = New-PSDrive -Name "TempDrive" -PSProvider FileSystem -Root "\\Server\ShareName" -Persist:$false
+
+# Get disk space info
+Get-PSDrive -Name "TempDrive" | Select-Object Used,Free
+
+# Remove the temporary drive mapping
+Remove-PSDrive -Name "TempDrive"
+
+# Get-PSDrive -Name TempDrive | Select-Object Name, @{Name="FreeSpace (GB)"; Expression={[math]::Round($_.Free / 1GB, 2)}}, @{Name="UsedSpace (GB)"; Expression={[math]::Round(($_.Used / 1GB), 2)}}
